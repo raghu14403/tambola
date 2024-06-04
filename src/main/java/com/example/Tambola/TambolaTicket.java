@@ -90,62 +90,6 @@ public class TambolaTicket {
         }).collect(Collectors.joining("|")) + "|");
     }
 
-
-    public void printAsGrid(List<Integer> nums) {
-        List<Integer> filledTicket = generateFilledArray(27, 0);
-        for (int i = 0; i < 15; i++) {
-            int row = Math.floorDiv(i, 5);
-            int col = Math.floorDiv(nums.get(i), 10);
-            if (col == 9) col = 8;
-            filledTicket.set(row * 5 + col, nums.get(i));
-        }
-        columnSort(filledTicket);
-        wrapperLine();
-        printRow(filledTicket.subList(0,9));
-        wrapperLine();
-        printRow(filledTicket.subList(9,18));
-        wrapperLine();
-        printRow(filledTicket.subList(18,27));
-        wrapperLine();
-    }
-
-    private void columnSort(List<Integer> items) {
-        for (int i = 0; i < 9; i++) {
-            Integer n1 = items.get(i);
-            Integer n2 = items.get(i + 9);
-            Integer n3 = items.get(i + 18);
-            if (n1 == 0 && n2 == 0 && n3 == 0) continue;
-            if (n1 !=0 && n2 != 0 && n3 != 0) {
-                List<Integer> vars = new ArrayList<>(Arrays.asList(n1, n2, n3));
-                Collections.sort(vars);
-                items.set(i, vars.get(0));
-                items.set(i + 9, vars.get(1));
-                items.set(i + 18, vars.get(2));
-                continue;
-            }
-            if (n1 != 0 && n2 != 0) {
-                List<Integer> vars = new ArrayList<>(Arrays.asList(n1, n2));
-                Collections.sort(vars);
-                items.set(i, vars.get(0));
-                items.set(i + 9, vars.get(1));
-                continue;
-            }
-            if (n1 != 0 && n3 != 0) {
-                List<Integer> vars = new ArrayList<>(Arrays.asList(n1, n3));
-                Collections.sort(vars);
-                items.set(i, vars.get(0));
-                items.set(i + 18, vars.get(1));
-                continue;
-            }
-            if (n2 != 0 && n3 != 0) {
-                List<Integer> vars = new ArrayList<>(Arrays.asList(n2, n3));
-                Collections.sort(vars);
-                items.set(i + 9, vars.get(0));
-                items.set(i + 18, vars.get(1));
-            }
-        }
-    }
-
     private Integer getSample(List<Integer> nums) {
         if (nums.isEmpty()) return null;
         int index = random.nextInt(nums.size());
